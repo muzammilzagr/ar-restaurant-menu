@@ -2,69 +2,185 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>AR Restaurant Menu</title>
 
-<script type="module" 
-src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js">
-</script>
+<!-- Model Viewer -->
+<script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
+
+<!-- Google Font -->
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
 
 <style>
 body {
-  font-family: Arial;
-  background:#f7f7f7;
-  padding:20px;
+  margin: 0;
+  font-family: 'Poppins', sans-serif;
+  background: #f4f6f8;
+  color: #333;
 }
+
+header {
+  background: #0f172a;
+  color: white;
+  padding: 20px;
+  text-align: center;
+}
+
+header h1 {
+  margin: 0;
+  font-weight: 500;
+}
+
+header p {
+  font-size: 14px;
+  opacity: 0.8;
+}
+
+.container {
+  max-width: 1100px;
+  margin: auto;
+  padding: 30px 20px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 25px;
+}
+
 .card {
-  background:white;
-  border-radius:10px;
-  padding:15px;
-  margin-bottom:20px;
+  background: white;
+  border-radius: 14px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+  overflow: hidden;
+  transition: transform 0.3s ease;
 }
+
+.card:hover {
+  transform: translateY(-6px);
+}
+
+.card img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+}
+
+.card-content {
+  padding: 18px;
+}
+
+.card-content h3 {
+  margin: 0 0 5px;
+  font-weight: 500;
+}
+
+.price {
+  font-weight: 600;
+  color: #0f172a;
+}
+
+.desc {
+  font-size: 14px;
+  color: #666;
+  margin: 8px 0 15px;
+}
+
 button {
-  padding:10px 15px;
-  border:none;
-  background:black;
-  color:white;
-  border-radius:5px;
-  cursor:pointer;
+  width: 100%;
+  padding: 12px;
+  background: #0f172a;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background 0.3s;
 }
+
+button:hover {
+  background: #020617;
+}
+
+.model-box {
+  display: none;
+  padding: 15px;
+}
+
 model-viewer {
-  width:100%;
-  height:300px;
+  width: 100%;
+  height: 300px;
+  background: #eef2f3;
+  border-radius: 10px;
+}
+
+footer {
+  text-align: center;
+  padding: 15px;
+  font-size: 13px;
+  color: #777;
 }
 </style>
 </head>
 
 <body>
 
-<h2>🍽️ Demo Restaurant Menu</h2>
+<header>
+  <h1>🍽️ AR Restaurant Menu</h1>
+  <p>Scan • View • Experience food in real size</p>
+</header>
 
-<div class="card">
-<h3>🍔 Burger</h3>
-<p>Juicy beef burger with cheese</p>
+<div class="container">
 
-<model-viewer 
-src="burger.glb"
-ar
-ar-modes="scene-viewer quick-look webxr"
-camera-controls
-auto-rotate>
-</model-viewer>
+  <!-- PRODUCT 1 -->
+  <div class="card">
+    <img src="images/burger.jpg" alt="Burger">
+    <div class="card-content">
+      <h3>Classic Burger</h3>
+      <div class="price">Rs. 850</div>
+      <div class="desc">Juicy beef burger with cheese & fresh veggies</div>
+      <button onclick="toggleAR('burgerAR')">View on Table (AR)</button>
+    </div>
+    <div class="model-box" id="burgerAR">
+      <model-viewer 
+        src="burger.glb"
+        ar
+        ar-modes="scene-viewer quick-look webxr"
+        camera-controls
+        auto-rotate>
+      </model-viewer>
+    </div>
+  </div>
+
+  <!-- PRODUCT 2 -->
+  <div class="card">
+    <img src="images/pizza.jpg" alt="Pizza">
+    <div class="card-content">
+      <h3>Pepperoni Pizza</h3>
+      <div class="price">Rs. 1,499</div>
+      <div class="desc">Cheesy pizza with premium pepperoni topping</div>
+      <button onclick="toggleAR('pizzaAR')">View on Table (AR)</button>
+    </div>
+    <div class="model-box" id="pizzaAR">
+      <model-viewer 
+        src="pizza.glb"
+        ar
+        ar-modes="scene-viewer quick-look webxr"
+        camera-controls
+        auto-rotate>
+      </model-viewer>
+    </div>
+  </div>
+
 </div>
 
-<div class="card">
-<h3>🍕 Pizza</h3>
-<p>Cheesy pepperoni pizza</p>
+<footer>
+  © 2026 AR Menu Demo • Portfolio Project
+</footer>
 
-<model-viewer 
-src="pizza.glb"
-ar
-ar-modes="scene-viewer quick-look webxr"
-camera-controls
-auto-rotate>
-</model-viewer>
-</div>
+<script>
+function toggleAR(id) {
+  const box = document.getElementById(id);
+  box.style.display = box.style.display === "block" ? "none" : "block";
+}
+</script>
 
 </body>
 </html>
-
